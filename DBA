@@ -1,0 +1,16 @@
+# find how table hold this column name
+
+SELECT 
+    t.TABLE_NAME AS TAB_Name
+FROM 
+    ALL_TAB_COLUMNS t
+JOIN 
+    ALL_CONS_COLUMNS c 
+    ON t.TABLE_NAME = c.TABLE_NAME 
+    AND t.COLUMN_NAME = c.COLUMN_NAME
+JOIN 
+    ALL_CONSTRAINTS pk 
+    ON c.CONSTRAINT_NAME = pk.CONSTRAINT_NAME
+    AND pk.CONSTRAINT_TYPE = 'P'  -- 'P' stands for Primary Key
+WHERE 
+    t.COLUMN_NAME = 'BILLNO';
